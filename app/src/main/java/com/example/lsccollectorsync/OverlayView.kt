@@ -28,6 +28,8 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     private var scaleFactor: Float = 1f
     private var imageWidth: Int = 1
     private var imageHeight: Int = 1
+    private var offsetX: Float = 0f
+    private var offsetY: Float = 0f
 
     fun clear() {
         results = null
@@ -37,6 +39,8 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
     override fun draw(canvas: Canvas) {
         super.draw(canvas)
         results?.let { handLandmarkerResult ->
+            canvas.save()
+            canvas.translate(offsetX, offsetY)
             for (landmark in handLandmarkerResult.landmarks()) {
                 // Puntos
                 for (point in landmark) {
@@ -59,6 +63,7 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
                     )
                 }
             }
+            canvas.restore()
         }
     }
 
@@ -73,6 +78,9 @@ class OverlayView(context: Context?, attrs: AttributeSet?) : View(context, attrs
 
         // Escala la imagen analizada al tamaño real de la vista (como CENTER_CROP)
         scaleFactor = max(width * 1f / imageWidth, height * 1f / imageHeight)
+        // Centra la imagen escalada (el recorte de CENTER_CROP se reparte entre los dos lados)
+        offsetX = (width - imageWidth * scaleFactor) / 2f
+        offsetY = (height - imageHeight * scaleFactor) / 2f
 
         invalidate()
     }

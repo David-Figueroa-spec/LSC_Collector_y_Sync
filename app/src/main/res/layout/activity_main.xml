@@ -1,155 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#111111"
-    tools:context=".MainActivity">
+    android:background="@color/crema">
 
-    <!-- Barra de estado: PC conectado / pendientes -->
-    <TextView
-        android:id="@+id/statusText"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/nav_host_fragment"
+        android:name="androidx.navigation.fragment.NavHostFragment"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:defaultNavHost="true"
+        app:layout_constraintBottom_toTopOf="@id/barraInferior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:navGraph="@navigation/nav_graph" />
+
+    <LinearLayout
+        android:id="@+id/barraInferior"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="12dp"
-        android:text="⚪ Sin PC (offline)"
-        android:textColor="#EEEEEE"
-        android:textSize="13sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Vista de cámara (CameraX) -->
-    <androidx.camera.view.PreviewView
-        android:id="@+id/previewView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginHorizontal="12dp"
-        app:layout_constraintBottom_toTopOf="@id/letterScroll"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/statusText" />
-
-    <com.example.lsccollectorsync.OverlayView
-        android:id="@+id/overlayView"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="@id/previewView"
-        app:layout_constraintEnd_toEndOf="@id/previewView"
-        app:layout_constraintStart_toStartOf="@id/previewView"
-        app:layout_constraintTop_toTopOf="@id/previewView" />
-
-    <!-- Botón cambiar cámara (frontal/trasera) -->
-    <TextView
-        android:id="@+id/switchCameraButton"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="#88000000"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="🔄"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/previewView"
-        app:layout_constraintTop_toTopOf="@id/previewView" />
-
-    <!-- Botón flash/linterna (solo disponible con cámara trasera) -->
-    <TextView
-        android:id="@+id/flashButton"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="8dp"
-        android:alpha="0.4"
-        android:background="#88000000"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="⚡"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/previewView"
-        app:layout_constraintTop_toTopOf="@id/previewView" />
-
-    <!-- Botón exportar y compartir datos recolectados -->
-    <TextView
-        android:id="@+id/exportButton"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="112dp"
-        android:layout_marginEnd="8dp"
-        android:background="#88000000"
-        android:clickable="true"
-        android:focusable="true"
-        android:gravity="center"
-        android:text="📤"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@id/previewView"
-        app:layout_constraintTop_toTopOf="@id/previewView" />
-
-    <!-- Imagen de referencia: cómo hacer la seña de la letra seleccionada -->
-    <ImageView
-        android:id="@+id/referenceImage"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginBottom="8dp"
-        android:background="#CCFFFFFF"
-        android:padding="2dp"
-        android:scaleType="centerCrop"
+        android:background="@color/arena"
+        android:orientation="horizontal"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@id/previewView"
-        app:layout_constraintStart_toStartOf="@id/previewView" />
-
-    <!-- Selector horizontal de letras -->
-    <HorizontalScrollView
-        android:id="@+id/letterScroll"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:scrollbars="none"
-        app:layout_constraintBottom_toTopOf="@id/footerText"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
-        <LinearLayout
-            android:id="@+id/letterContainer"
-            android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/tabTraducir"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingHorizontal="8dp" />
-    </HorizontalScrollView>
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="🤟\nTraducir"
+            android:textColor="@color/texto_oscuro"
+            android:textSize="12sp" />
 
-    <!-- Contador de muestras -->
-    <TextView
-        android:id="@+id/footerText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:gravity="center"
-        android:text="Letra: A · Muestras guardadas: 0"
-        android:textColor="#EEEEEE"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toTopOf="@id/recordButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/tabHistorial"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="🕘\nHistorial"
+            android:textColor="@color/texto_oscuro"
+            android:textSize="12sp" />
 
-    <!-- Botón grabar/detener -->
-    <Button
-        android:id="@+id/recordButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="#E74C3C"
-        android:paddingHorizontal="32dp"
-        android:paddingVertical="12dp"
-        android:text="Grabar"
-        android:textColor="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/tabFrecuentes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="⭐\nFrecuentes"
+            android:textColor="@color/texto_oscuro"
+            android:textSize="12sp" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

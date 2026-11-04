@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.lsccollectorsync.ui.home.HomeFragment"
+        android:label="Menú Inicial"
+        tools:layout="@layout/fragment_home">
+
+        <action
+            android:id="@+id/action_homeFragment_to_captureFragment"
+            app:destination="@id/captureFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_textToSignFragment"
+            app:destination="@id/textToSignFragment" />
+
+        <action
+            android:id="@+id/action_homeFragment_to_signToTextFragment"
+            app:destination="@id/signToTextFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/captureFragment"
+        android:name="com.example.lsccollectorsync.ui.capture.CaptureFragment"
+        android:label="Captura de Datos"
+        tools:layout="@layout/fragment_capture" />
+
+    <fragment
+        android:id="@+id/textToSignFragment"
+        android:name="com.example.lsccollectorsync.ui.texttosign.TextToSignFragment"
+        android:label="Texto a Seña"
+        tools:layout="@layout/fragment_text_to_sign" />
+
+    <fragment
+        android:id="@+id/signToTextFragment"
+        android:name="com.example.lsccollectorsync.ui.signtotext.SignToTextFragment"
+        android:label="Seña a Texto"
+        tools:layout="@layout/fragment_sign_to_text" />
+
+    <fragment
+        android:id="@+id/historialFragment"
+        android:name="com.example.lsccollectorsync.ui.historial.HistorialFragment"
+        android:label="Historial"
+        tools:layout="@layout/fragment_historial" />
+
+    <fragment
+        android:id="@+id/frecuentesFragment"
+        android:name="com.example.lsccollectorsync.ui.frecuentes.FrecuentesFragment"
+        android:label="Palabras frecuentes"
+        tools:layout="@layout/fragment_frecuentes" />
+
+</navigation>

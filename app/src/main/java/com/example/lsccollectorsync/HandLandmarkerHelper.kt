@@ -17,10 +17,14 @@ class HandLandmarkerHelper(
     val context: Context,
     val listener: LandmarkerListener
 ) {
+    @Volatile
     private var handLandmarker: HandLandmarker? = null
+    @Volatile
+    private var cerrado = false
 
     init {
-        setupHandLandmarker()
+        // El modelo (GPU) tarda en cargar: se hace en otro hilo para no bloquear la pantalla.
+        Thread({ setupHandLandmarker() }, "HandLandmarkerInit").start()
     }
 
     private fun setupHandLandmarker() {
@@ -41,7 +45,10 @@ class HandLandmarkerHelper(
                 .setErrorListener(this::returnLivestreamError)
                 .build()
 
-            handLandmarker = HandLandmarker.createFromOptions(context, options)
+            val creado = HandLandmarker.createFromOptions(context, options)
+            synchronized(this) {
+                if (cerrado) creado.close() else handLandmarker = creado
+            }
         } catch (e: Exception) {
             Log.e(TAG, "Error al inicializar HandLandmarker: ${e.message}")
             listener.onError("No se pudo cargar el modelo: ${e.message}")
@@ -83,8 +90,11 @@ class HandLandmarkerHelper(
     }
 
     fun close() {
-        handLandmarker?.close()
-        handLandmarker = null
+        synchronized(this) {
+            cerrado = true
+            handLandmarker?.close()
+            handLandmarker = null
+        }
     }
 
     companion object {

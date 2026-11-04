@@ -2,4 +2,8 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="crema">#F5EFE1</color>
+    <color name="arena">#E6C48F</color>
+    <color name="frecuentes_fondo">#ECEFF2</color>
+    <color name="texto_oscuro">#222222</color>
 </resources>
